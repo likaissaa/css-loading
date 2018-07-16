@@ -5,74 +5,70 @@
 		<meta charset="utf-8" />
 		<title></title>
 		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="js/vue2.5.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/utils.js" ></script>
 		<style type="text/css">
+			@-moz-keyframes loader
+			/* Firefox */
+			to {
+				background-position: -800px 0;
+			}
+			
+			@-webkit-keyframes loader
+			/* Safari 和 Chrome */
+			
+			to {
+				background-position: -800px 0;
+			}
+			
+			@-o-keyframes loader{
+				to {
+				background-position: -800px 0;
+			}
+			}
+			/* Opera */
+			
 			@keyframes loader {
 				to {
 					background-position: -800px 0;
 				}
 			}
-			
-			.loader {
-				width: 100px;
-				height: 100px;
-				background: url(img/loader.png) 0 0;
-				animation: loader 1s infinite steps(8, start);
-				text-indent: 200%;
-				white-space: nowrap;
-				overflow: hidden;
-			}
+
 		</style>
 	</head>
 
 	<body>
 		<div id="app">
-			<div class="loader" v-show="showme">
-				Loading
-			</div>
+			<button type="button" @click="haha">第一个loading</button>
+			<button type="button" @click="haha2">第二个loading</button>
 		</div>
 
 	</body>
 
 	<script type="text/javascript">
-		var vm = new Vue({
-			el: "#app",
+var vm = new Vue({
+			el:"#app",
 			data: {
-				showme: false
-			},
-			mounted: function() {
-				var that=this;
-				/*that.showme=true;*/
-					getinfo(that);
-
+				
 			},
 			methods: {
-
+				haha(){
+					beginLoading("曹尼玛改");
+					setTimeout(function(){
+						hideLoading()
+					},3000)
+				},
+				haha2(){
+					beginLoading1("不服干你");
+					setTimeout(function(){
+						hideLoading1()
+					},3000)
+				},
+				greet(val){
+                    vm.val = val;
+                }
 			}
 		})
-
-		function getinfo(that) {
-			$.ajax({
-				url: "./test.json",
-				type: "GET",
-				data: {},
-				dataType: "json",
-				beforeSend:function(){
-					that.showme=true;
-				},
-				async: false,
-				success: function(res) {
-					setTimeout(function(){
-						that.showme=false;
-						console.log(JSON.stringify(res))
-					},5000)
-											
-				},
-				error: function() {
-					alert("获取用户信息失败。")
-				}
-			})
-		}
 	</script>
 
 </html>
